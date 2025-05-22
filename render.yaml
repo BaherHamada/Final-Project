@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: dental-chat-api
+    env: python
+    buildCommand: ""
+    startCommand: python app.py
+    envVars:
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: service_account.json
