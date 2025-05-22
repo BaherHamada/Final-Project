@@ -1,17 +1,23 @@
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service_account.json"
+import json
+
+# ✅ تجهيز ملف service_account.json من متغير البيئة (لو موجود)
+if "GOOGLE_CREDS_JSON" in os.environ:
+    with open("service_account.json", "w") as f:
+        f.write(os.environ["GOOGLE_CREDS_JSON"])
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service_account.json"
 
 from flask import Flask, request, jsonify
 import vertexai
 from vertexai.generative_models import GenerativeModel
 
-# إعداد GCP
+# ✅ إعداد GCP
 vertexai.init(project="final-chat-460420", location="us-central1")
 
-# تحميل موديل Gemini
+# ✅ تحميل موديل Gemini
 model = GenerativeModel("gemini-2.5-flash-preview-05-20")
 
-# إعداد Flask
+# ✅ إعداد Flask
 app = Flask(__name__)
 
 @app.route('/chat', methods=['POST'])
